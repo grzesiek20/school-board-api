@@ -44,7 +44,7 @@ import javax.persistence.Table;
 		@Column
 		private String headerFontColor;
 		@Column
-		private String TextAlign;
+		private String textAlign;
 		
 		
 		
@@ -197,13 +197,13 @@ import javax.persistence.Table;
 
 
 		public String getTextAlign() {
-			return TextAlign;
+			return textAlign;
 		}
 
 
 
 		public void setTextAlign(String textAlign) {
-			TextAlign = textAlign;
+			this.textAlign = textAlign;
 		}
 		
 	   

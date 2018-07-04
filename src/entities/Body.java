@@ -1,7 +1,6 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,10 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Entity
 @Table
 public class Body implements Serializable {
-
 	
 	private static final long serialVersionUID = 1L;
 
@@ -29,11 +30,13 @@ public class Body implements Serializable {
 	@Column
 	//@Basic(optional=false)
 	//@Temporal(TemporalType.DATE) //DATE
-	private java.sql.Date startDate;
+	private String startDate;
 	@Column
 	//@Basic(optional=false)
 	//@Temporal(TemporalType.DATE)
-	private java.sql.Date endDate;
+	private String endDate;
+	@Column
+	private boolean visible;
 	@ManyToOne(fetch=FetchType.LAZY)
 	@JoinColumn(name="id_panel")
 	private Panel panel;
@@ -60,28 +63,28 @@ public class Body implements Serializable {
 		this.content = content;
 	}
 
-	public Date getStartDate() {
+	public String getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(java.sql.Date startDate) {
+	public void setStartDate(String startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public String getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(java.sql.Date endDate) {
+	public void setEndDate(String endDate) {
 		this.endDate = endDate;
 	}
 
-	public Panel getPanel() {
-		return panel;
-	}
+//	public Panel getPanel() {
+//		return panel;
+//	}
 
-	public void setPanel(Panel panel) {
-		this.panel = panel;
-	}
+//	public void setPanel(Panel panel) {
+//		this.panel = panel;
+//	}
    
 }

@@ -13,30 +13,31 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import dao.PanelDAO;
-import entities.Panel;
+
+import dao.BodyDAO;
+import entities.Body;
 
 
 @Path("/api")
-public class PanelService {
+public class BodyService {
 
 	@Inject
-	 private PanelDAO dao;
+	 private BodyDAO dao;
 	
 	 @POST
-		@Path("/panel")
+		@Path("/body")
 	 	@Consumes(MediaType.APPLICATION_JSON)
 	 	@Produces(MediaType.APPLICATION_JSON)
-		public Response createPanel(Panel panel) {
-			Panel result = dao.addPanel(panel);
+		public Response createPanel(Body body) {
+			Body result = dao.addBody(body);
 	        return Response.status(201).entity(result).build();
 		}
 	 
 	 @GET
-		@Path("/panel")
+		@Path("/body")
 		@Produces(MediaType.APPLICATION_JSON)
 		public Response getAll() {
-			List<Panel> result = dao.getAll();
+			List<Body> result = dao.getAll();
 			if(result == null)
 				return Response.noContent().build();
 			else
@@ -44,10 +45,21 @@ public class PanelService {
 		}
 	 
 	 @GET
-		@Path("/panel/{id}")
+		@Path("/body/{id}")
 		@Produces(MediaType.APPLICATION_JSON)
-		public Response getPanel(@PathParam("id") Integer id) {
-			Panel result = dao.getById(id);
+		public Response getBody(@PathParam("id") Integer id) {
+			Body result = dao.getById(id);
+		if(result!=null)
+			return Response.ok(result).build();
+		else
+			return Response.noContent().build();
+		}
+	 
+	 @GET
+		@Path("/body/panel/{id}")
+		@Produces(MediaType.APPLICATION_JSON)
+		public Response getAllByPanelId(@PathParam("id") Integer id) {
+			List<Body> result = dao.getAllByPanelId(id);
 		if(result!=null)
 			return Response.ok(result).build();
 		else
@@ -55,11 +67,11 @@ public class PanelService {
 		}
 	 
 	 @PUT
-	 @Path("/panel/{id}")
+	 @Path("/body/{id}")
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 @Produces(MediaType.APPLICATION_JSON)
-	 public Response updatePanel(@PathParam("id") Integer id, Panel panel) {
-		 Panel result = dao.updatePanel(id, panel);
+	 public Response updateBody(@PathParam("id") Integer id, Body body) {
+		 Body result = dao.updateBody(id, body);
 		 if(result == null)
 			 return Response.serverError().build();
 		 else
@@ -67,11 +79,11 @@ public class PanelService {
 	 }
 	 
 	 @DELETE
-	 @Path("/panel/{id}")
+	 @Path("/body/{id}")
 	 @Consumes(MediaType.APPLICATION_JSON)
 	 @Produces(MediaType.APPLICATION_JSON)
-	 public Response deletePanel(@PathParam("id") Integer id) {
-		 Panel result = dao.deletePanel(id);
+	 public Response deleteBody(@PathParam("id") Integer id) {
+		 Body result = dao.deleteBody(id);
 		 return Response.ok(result).build();
 	 }
 }
